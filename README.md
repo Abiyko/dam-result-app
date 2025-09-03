@@ -1,3 +1,4 @@
+server.jsについて。
 DAMの精密採点AiHerの結果を取得するスクリプトです。
 Node.jsでローカルサーバーを立ち上げてデータを取得したものをブラウザに表示するだけです。
 urlはhttp://localhost:3000/get-xmlです。
