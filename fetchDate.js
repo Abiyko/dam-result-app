@@ -4,13 +4,21 @@ const { parse } = require('csv-parse');
 const { stringify } = require('csv-stringify');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
+require('dotenv').config();
 
 async function readCsvValue(filePath) {
   try {
     // 1. ファイルが存在するか確認
     if (!fs.existsSync(filePath)) {
-      console.error(`エラー: ${filePath} が見つかりません。`);
-      return;
+      console.log(`${filePath} が見つかりません。新しいファイルを作成します...`);
+      try {
+        // 同期的に空のファイルを作成
+        fs.writeFileSync(filePath, '');
+        console.log(`${filePath} が正常に作成されました。`);
+      } catch (err) {
+        console.error(`エラー: ${filePath} の作成中に問題が発生しました。`, err);
+        return;
+      }
     }
 
     // 2. CSVファイルを読み込み、解析
@@ -26,10 +34,16 @@ async function readCsvValue(filePath) {
     });
 
     // A2の値を抽出
-    return records[1][0];
+    //return records[1][0];
+    if (records.length > 1 && records[1].length > 0) {
+      return records[1][0];
+    } else {
+      // データが空の場合
+      return null;
+    }
 
   } catch (error) {
-    console.error('CSVファイルの読み込み中にエラーが発生しました:', error);
+    console.error("CSVファイルの読み込み中にエラーが発生しました:", error);
     return null;
   }
 }
@@ -37,9 +51,15 @@ async function readCsvValue(filePath) {
 
 async function fetchDataAndSaveToCsv(a2Value) {
   const url = 'https://www.clubdam.com/app/damtomo/scoring/GetScoringHeartsListXML.do';
-  const cdmCardNo = 'fugafuga'; // ここに適切な値を入力
   const detailFlg = '1';
   const pageNo = '1';
+
+  // .envファイルからcdmCardNoを読み込む
+  const cdmCardNo = process.env.CDM_CARD_NO; 
+  if (!cdmCardNo) {
+    console.error("エラー: 環境変数 'CDM_CARD_NO' が設定されていません。");
+    return;
+  }
 
   try {
     const response = await axios.get(url, {
@@ -105,13 +125,18 @@ async function fetchDataAndSaveToCsv(a2Value) {
 
 // 処理を制御するメイン関数
 async function main() {
-  const a2Value = await readCsvValue('scores.csv');
+  const filePath = 'scores.csv';
+  const a2Value = await readCsvValue(filePath);
 
   if (a2Value) {
+    // ファイルからデータが読み込めた場合
     console.log(`CSVから読み込んだ値: ${a2Value}`);
-    await fetchDataAndSaveToCsv(); // 値をfetchDataAndSaveToCsv()に渡して実行
+    // ここで何か後続の処理（例えば、a2Valueを使ってデータを絞り込むなど）を行う
+    await fetchDataAndSaveToCsv(); // 例として既存の処理をそのまま呼び出す
   } else {
-    console.log('処理を中止しました。');
+    // ファイルが存在しないか、データが空だった場合
+    console.log('scores.csvにデータが見つかりませんでした。新しくデータを取得します。');
+    await fetchDataAndSaveToCsv();
   }
 }
 
