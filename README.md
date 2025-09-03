@@ -1,5 +1,8 @@
 server.jsについて。
-DAMの精密採点AiHerの結果を取得するスクリプトです。
+
+DAMの精密採点AiHeartの結果を取得するスクリプトです。
 Node.jsでローカルサーバーを立ち上げてデータを取得したものをブラウザに表示するだけです。
-urlはhttp://localhost:3000/get-xmlです。
+urlは
+http://localhost:3000/get-xml
+です。
 cdmCardNoはサイト内に明示的に示されているわけではないので、ブラウザの開発者モードを開いてネットワークタブにてcdmCardIdを見つけましょう。GoogleChromeよりMicrosoftEdgeのほうが見つけやすいと思います。
