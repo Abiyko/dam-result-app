@@ -6,7 +6,8 @@ const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 require('dotenv').config();
 
-// CSVから値（A2セル）を読み取る関数
+
+// CSVから最新のscoringHeartsHistoryIdを読み取る関数
 async function readCsvValue(filePath) {
     try {
         if (!fs.existsSync(filePath)) {
@@ -41,13 +42,14 @@ async function readCsvValue(filePath) {
     }
 }
 
+
 // データを取得しCSVファイルに保存する関数
 async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
     const url = 'https://www.clubdam.com/app/damtomo/scoring/GetScoringHeartsListXML.do';
     const detailFlg = '1';
     const allAcquiredData = [];
     let pageNo = 1;
-    let foundExistingRecord = false; // フラグ変数を追加
+    let existingRecordFlg = false;
 
     const cdmCardNo = process.env.CDM_CARD_NO;
     if (!cdmCardNo) {
@@ -79,31 +81,30 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
 
             for (const item of pageData) {
                 const historyId = parseInt(item.scoringHearts[0].$.scoringHeartsHistoryId, 10);
-                if (lastStoredId && historyId <= lastStoredId) {
-                    console.log('既存のデータです。');
+                if (historyId <= lastStoredId) {
                     if (allAcquiredData.length === 0) {
                         console.log('新たな記録はありませんでした。');
                         return;
                     }
-                    foundExistingRecord = true; // フラグを立てる
+                    existingRecordFlg = true;
                     break;
                 }
                 allAcquiredData.push(item);
             }
 
             // フラグがtrueなら、whileループも終了
-            if (foundExistingRecord) {
+            if (existingRecordFlg) {
                 break;
             }
-
-            console.log(`ページ ${pageNo} のデータを取得しました。`);
 
             const hasNext = documentData.list[0].$.hasNext;
             if (hasNext === "0") {
                 console.log('すべてのページのデータを取得しました。');
                 break;
             }
+
             pageNo++;
+
         } catch (error) {
             console.error('データの取得または処理中にエラーが発生しました:', error);
             break;
@@ -141,23 +142,21 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
     });
 
     fs.appendFileSync(filePath, csvString, { encoding: 'utf-8' });
-    console.log('新しいデータが scoresHearts.csv に追記されました。');
+    console.log('新しいデータが scoresHeart.csv に追記されました。');
 }
 
-// 処理を制御するメイン関数
+
 async function main() {
     const filePath = 'scoresHeart.csv';
     const lastStoredId = await readCsvValue(filePath);
 
     if (lastStoredId) {
-        console.log(`CSVから読み込んだ最新ID: ${lastStoredId}`);
         await fetchDataAndSaveToCsv(filePath, lastStoredId);
     } else {
         console.log('scoresHeart.csvにデータが見つかりませんでした。新しくデータを取得します。');
-        // ファイルがない場合、ここで空のファイルを作成
-        fs.writeFileSync(filePath, '');
         await fetchDataAndSaveToCsv(filePath, null);
     }
 }
+
 
 main();
