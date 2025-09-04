@@ -150,8 +150,7 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
 
 async function main() {
     const path = require('path');
-    //const filePath = path.join(__dirname, '..', '..', 'scoresHeart.csv');
-    const filePath = path.join(__dirname, '..', 'servers', 'scoresHeart.csv');
+    const filePath = path.join(__dirname, '..', 'scoresHeart.csv');
     
     const lastStoredId = await readCsvValue(filePath);
     if (lastStoredId) {
