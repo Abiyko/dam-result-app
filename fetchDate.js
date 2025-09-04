@@ -51,6 +51,7 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
     let pageNo = 1;
     let existingRecordFlg = false;
 
+    // 環境変数からcdmCardNoの取得
     const cdmCardNo = process.env.CDM_CARD_NO;
     if (!cdmCardNo) {
         console.error("エラー: 環境変数 'CDM_CARD_NO' が設定されていません。");
@@ -62,8 +63,8 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
             const response = await axios.get(url, {
                 params: {
                     cdmCardNo: cdmCardNo,
-                    pageNo: pageNo,
                     detailFlg: detailFlg,
+                    pageNo: pageNo,
                     enc: 'utf-8'
                 },
                 responseType: 'text'
@@ -80,8 +81,8 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
             const pageData = documentData.list[0].data;
 
             for (const item of pageData) {
-                const historyId = parseInt(item.scoringHearts[0].$.scoringHeartsHistoryId, 10);
-                if (historyId <= lastStoredId) {
+                const scoringId = parseInt(item.scoringHearts[0].$.scoringHeartsHistoryId, 10);
+                if (scoringId <= lastStoredId) {
                     if (allAcquiredData.length === 0) {
                         console.log('新たな記録はありませんでした。');
                         return;
@@ -122,6 +123,7 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
         return idA - idB;
     });
 
+    //指定ファイルがない場合に新たなファイルの作成とヘッダーの書き込み
     const fileExists = fs.existsSync(filePath);
     if (!fileExists) {
         const headers = Object.keys(allAcquiredData[0].scoringHearts[0].$);
