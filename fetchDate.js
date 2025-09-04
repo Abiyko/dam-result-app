@@ -6,140 +6,158 @@ const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 require('dotenv').config();
 
+// CSVから値（A2セル）を読み取る関数
 async function readCsvValue(filePath) {
-  try {
-    // 1. ファイルが存在するか確認
-    if (!fs.existsSync(filePath)) {
-      console.log(`${filePath} が見つかりません。新しいファイルを作成します...`);
-      try {
-        // 同期的に空のファイルを作成
-        fs.writeFileSync(filePath, '');
-        console.log(`${filePath} が正常に作成されました。`);
-      } catch (err) {
-        console.error(`エラー: ${filePath} の作成中に問題が発生しました。`, err);
-        return;
-      }
-    }
+    try {
+        if (!fs.existsSync(filePath)) {
+            console.log(`${filePath} が見つかりません。`);
+            return null;
+        }
 
-    // 2. CSVファイルを読み込み、解析
-    const records = await new Promise((resolve, reject) => {
-      fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
-        if (err) return reject(err);
-
-        parse(data, {}, (err, records) => {
-          if (err) return reject(err);
-          resolve(records);
+        const records = await new Promise((resolve, reject) => {
+            fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
+                if (err) return reject(err);
+                if (data.trim() === '') {
+                    resolve([]);
+                } else {
+                    parse(data, {}, (err, records) => {
+                        if (err) return reject(err);
+                        resolve(records);
+                    });
+                }
+            });
         });
-      });
-    });
 
-    // A2の値を抽出
-    //return records[1][0];
-    if (records.length > 1 && records[1].length > 0) {
-      return records[1][0];
-    } else {
-      // データが空の場合
-      return null;
+        if (records.length > 1) {
+            const lastRecord = records[records.length - 1];
+            if (lastRecord.length > 0) {
+                return lastRecord[0];
+            }
+        }
+        return null;
+    } catch (error) {
+        console.error("CSVファイルの読み込み中にエラーが発生しました:", error);
+        return null;
     }
-
-  } catch (error) {
-    console.error("CSVファイルの読み込み中にエラーが発生しました:", error);
-    return null;
-  }
 }
 
+// データを取得しCSVファイルに保存する関数
+async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
+    const url = 'https://www.clubdam.com/app/damtomo/scoring/GetScoringHeartsListXML.do';
+    const detailFlg = '1';
+    const allAcquiredData = [];
+    let pageNo = 1;
+    let foundExistingRecord = false; // フラグ変数を追加
 
-async function fetchDataAndSaveToCsv(a2Value) {
-  const url = 'https://www.clubdam.com/app/damtomo/scoring/GetScoringHeartsListXML.do';
-  const detailFlg = '1';
-  const pageNo = '1';
-
-  // .envファイルからcdmCardNoを読み込む
-  const cdmCardNo = process.env.CDM_CARD_NO; 
-  if (!cdmCardNo) {
-    console.error("エラー: 環境変数 'CDM_CARD_NO' が設定されていません。");
-    return;
-  }
-
-  try {
-    const response = await axios.get(url, {
-      params: {
-        cdmCardNo: cdmCardNo,
-        pageNo: pageNo,
-        detailFlg: detailFlg,
-        enc: 'utf-8'
-      },
-      responseType: 'text'
-    });
-
-    // データの取得
-    const jsonData = await parser.parseStringPromise(response.data);
-
-    // データが空でないか確認
-    if (!jsonData.document.list || jsonData.document.list[0].$.count === '0') {
-      console.log("取得したデータがありません。");
-      return;
-    }
-    
-    // すべての曲のデータを含む配列を取得
-    const allSongData = jsonData.document.list[0].data;
-
-    // 配列の最後の要素にアクセス
-    const lastSong = allSongData[allSongData.length - 1];
-
-    // 最後に取得した曲のscoringHeartsHistoryIdを抽出
-    const lastSongId = lastSong.scoringHearts[0].$.scoringHeartsHistoryId;
-
-    // IDをコンソールに出力
-    console.log('最後に取得した曲のID:', lastSongId);
-
-    // データ加工
-    const tableData = jsonData.document.list[0].data.map(item => {
-      const hearts = item.scoringHearts[0];
-      
-      // すべての属性を抽出
-      return {
-        ...hearts.$
-      };
-    });
-
-    // CSVに変換してファイルに書き込み
-    stringify(tableData, { header: true }, (err, csvString) => {
-      if (err) {
-        console.error('CSVの生成中にエラーが発生しました:', err);
+    const cdmCardNo = process.env.CDM_CARD_NO;
+    if (!cdmCardNo) {
+        console.error("エラー: 環境変数 'CDM_CARD_NO' が設定されていません。");
         return;
-      }
-      fs.writeFile('scores.csv', csvString, (err) => {
-        if (err) {
-          console.error('ファイルの書き込み中にエラーが発生しました:', err);
-          return;
+    }
+
+    while (true) {
+        try {
+            const response = await axios.get(url, {
+                params: {
+                    cdmCardNo: cdmCardNo,
+                    pageNo: pageNo,
+                    detailFlg: detailFlg,
+                    enc: 'utf-8'
+                },
+                responseType: 'text'
+            });
+
+            const jsonData = await parser.parseStringPromise(response.data);
+            const documentData = jsonData.document;
+
+            if (!documentData || !documentData.list || documentData.list[0].$.count === '0') {
+                console.log("取得できるデータがなくなりました。");
+                break;
+            }
+
+            const pageData = documentData.list[0].data;
+
+            for (const item of pageData) {
+                const historyId = parseInt(item.scoringHearts[0].$.scoringHeartsHistoryId, 10);
+                if (lastStoredId && historyId <= lastStoredId) {
+                    console.log('既存のデータです。');
+                    if (allAcquiredData.length === 0) {
+                        console.log('新たな記録はありませんでした。');
+                        return;
+                    }
+                    foundExistingRecord = true; // フラグを立てる
+                    break;
+                }
+                allAcquiredData.push(item);
+            }
+
+            // フラグがtrueなら、whileループも終了
+            if (foundExistingRecord) {
+                break;
+            }
+
+            console.log(`ページ ${pageNo} のデータを取得しました。`);
+
+            const hasNext = documentData.list[0].$.hasNext;
+            if (hasNext === "0") {
+                console.log('すべてのページのデータを取得しました。');
+                break;
+            }
+            pageNo++;
+        } catch (error) {
+            console.error('データの取得または処理中にエラーが発生しました:', error);
+            break;
         }
-        console.log('scores.csvにデータが保存されました。');
-      });
+    }
+
+    if (allAcquiredData.length === 0) {
+        console.log('新たな記録はありませんでした。');
+        return;
+    }
+
+    allAcquiredData.sort((a, b) => {
+        const idA = parseInt(a.scoringHearts[0].$.scoringHeartsHistoryId, 10);
+        const idB = parseInt(b.scoringHearts[0].$.scoringHeartsHistoryId, 10);
+        return idA - idB;
     });
 
-  } catch (error) {
-    console.error('データの取得または処理中にエラーが発生しました:', error);
-  }
+    const fileExists = fs.existsSync(filePath);
+    if (!fileExists) {
+        const headers = Object.keys(allAcquiredData[0].scoringHearts[0].$);
+        const headerString = headers.join(',') + '\n';
+        fs.writeFileSync(filePath, headerString, { encoding: 'utf-8' });
+        console.log('新しいファイルにヘッダーが書き込まれました。');
+    }
+
+    const tableData = allAcquiredData.map(item => item.scoringHearts[0].$);
+    const csvString = await new Promise((resolve, reject) => {
+        stringify(tableData, {
+            quoted: true,
+            header: false
+        }, (err, output) => {
+            if (err) reject(err);
+            resolve(output);
+        });
+    });
+
+    fs.appendFileSync(filePath, csvString, { encoding: 'utf-8' });
+    console.log('新しいデータが scoresHearts.csv に追記されました。');
 }
 
 // 処理を制御するメイン関数
 async function main() {
-  const filePath = 'scores.csv';
-  const a2Value = await readCsvValue(filePath);
+    const filePath = 'scoresHeart.csv';
+    const lastStoredId = await readCsvValue(filePath);
 
-  if (a2Value) {
-    // ファイルからデータが読み込めた場合
-    console.log(`CSVから読み込んだ値: ${a2Value}`);
-    // ここで何か後続の処理（例えば、a2Valueを使ってデータを絞り込むなど）を行う
-    await fetchDataAndSaveToCsv(); // 例として既存の処理をそのまま呼び出す
-  } else {
-    // ファイルが存在しないか、データが空だった場合
-    console.log('scores.csvにデータが見つかりませんでした。新しくデータを取得します。');
-    await fetchDataAndSaveToCsv();
-  }
+    if (lastStoredId) {
+        console.log(`CSVから読み込んだ最新ID: ${lastStoredId}`);
+        await fetchDataAndSaveToCsv(filePath, lastStoredId);
+    } else {
+        console.log('scoresHeart.csvにデータが見つかりませんでした。新しくデータを取得します。');
+        // ファイルがない場合、ここで空のファイルを作成
+        fs.writeFileSync(filePath, '');
+        await fetchDataAndSaveToCsv(filePath, null);
+    }
 }
 
-
-// メイン関数を実行
 main();
