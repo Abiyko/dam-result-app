@@ -1,8 +1,10 @@
-server.jsについて。
+要件定義は [document.md](https://github.com/Abiyko/dam-result-app/blob/main/document.md)に記載。
 
-DAMの精密採点AiHeartの結果を取得するスクリプトです。
-Node.jsでローカルサーバーを立ち上げてデータを取得したものをブラウザに表示するだけです。
-urlは
+server.js について。
+
+DAM の精密採点 AiHeart の結果を取得するスクリプトです。
+Node.js でローカルサーバーを立ち上げてデータを取得したものをブラウザに表示するだけです。
+url は
 http://localhost:3000/get-xml
 です。
-cdmCardNoはサイト内に明示的に示されているわけではないので、ブラウザの開発者モードを開いてネットワークタブにてcdmCardIdを見つけましょう。GoogleChromeよりMicrosoftEdgeのほうが見つけやすいと思います。
+cdmCardNo はサイト内に明示的に示されているわけではないので、ブラウザの開発者モードを開いてネットワークタブにて cdmCardId を見つけましょう。GoogleChrome より MicrosoftEdge のほうが見つけやすいと思います。
