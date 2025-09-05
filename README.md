@@ -1,6 +1,8 @@
+# 現在鋭意制作中です！
+
 要件定義は [document.md](https://github.com/Abiyko/dam-result-app/blob/main/document.md)に記載。
 
-server.js について。
+### server.js について。
 
 DAM の精密採点 AiHeart の結果を取得するスクリプトです。
 Node.js でローカルサーバーを立ち上げてデータを取得したものをブラウザに表示するだけです。
