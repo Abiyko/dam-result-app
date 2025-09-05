@@ -1,6 +1,6 @@
 # 現在鋭意制作中です！
 
-要件定義は [document.md](https://github.com/Abiyko/dam-result-app/blob/main/document.md)に記載。
+要件定義書は [document.md](https://github.com/Abiyko/dam-result-app/blob/main/document.md)に記載。
 
 ### server.js について。
 
