@@ -9,6 +9,9 @@ require("dotenv").config({ path: __dirname + "/.env" });
 urlDxg = "https://www.clubdam.com/app/damtomo/scoring/GetScoringDxgListXML.do"
 scoringHistoryIdDxg = "scoringDxgId"
 
+exportFilename = "scoresDxg.csv"
+
+
 
 // CSVから最新のscoringHistoryIdを読み取る関数
 async function readCsvValue(filePath) {
@@ -156,7 +159,7 @@ async function fetchDataAndSaveToCsv(url, scoringHistoryId, filePath, lastStored
   });
 
   fs.appendFileSync(filePath, csvString, { encoding: "utf-8" });
-  console.log("新しいデータが scoresHeart.csv に追記されました。");
+  console.log("新しいデータが",exportFilename,"に追記されました。");
 }
 
 async function main() {
@@ -166,7 +169,6 @@ async function main() {
   let scoringHistoryId;
   let lastStoredId;
   
-  exportFilename = "scoresDxg.csv"
   filePath = path.join(__dirname, "..", exportFilename);
   url = urlDxg;
   scoringHistoryId = scoringHistoryIdDxg;

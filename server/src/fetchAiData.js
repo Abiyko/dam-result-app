@@ -13,6 +13,10 @@ scoringHistoryIdDxg = "scoringDxgId"
 scoringHistoryIdAi = "scoringAiId"
 scoringHistoryIdHeart = "scoringHeartsHistoryId"
 
+exportFilename = "scoresAi.csv"
+
+
+
 
 // CSVから最新のscoringHistoryIdを読み取る関数
 async function readCsvValue(filePath) {
@@ -159,7 +163,7 @@ async function fetchDataAndSaveToCsv(url, scoringHistoryId, filePath, lastStored
   });
 
   fs.appendFileSync(filePath, csvString, { encoding: "utf-8" });
-  console.log("新しいデータが scoresHeart.csv に追記されました。");
+  console.log("新しいデータが",exportFilename,"に追記されました。");
 }
 
 async function main() {
@@ -169,7 +173,6 @@ async function main() {
   let scoringHistoryId;
   let lastStoredId;
 
-  exportFilename = "scoresAi.csv"
   filePath = path.join(__dirname, "..", exportFilename);
   url = urlAi;
   scoringHistoryId = scoringHistoryIdAi;
