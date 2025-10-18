@@ -72,11 +72,11 @@ function GetSongDatasMostSung(records) {
   });
 
   // ソートされた配列から上位5つのキー（artistName）を抽出
-  const top5ArtistName = sortedArtistNameCounts
+  const top5ArtistNames = sortedArtistNameCounts
     .slice(0, 5) // 配列の最初から5要素を抽出
     .map(([requestNo,]) => requestNo); // 各要素の0番目（artistName）だけを抽出
   
-  return { top5RequestNos, top5SongNames, top5ArtistName };
+  return { top5RequestNos, top5SongNames, top5ArtistNames};
 }
 
 
@@ -155,25 +155,25 @@ function calcLatestStates(targetRecords, latestDateKey) {
     sumHearing += parseFloat(record.radarChartHearing);
   });
 
-      // 最大値と平均値を計算し、変数に格納
-      const latestDateAvgPitch = (dataCount > 0 ? (sumPitch / dataCount) : 0).toFixed(3);
-      const latestDateAvgStability = (dataCount > 0 ? (sumStability / dataCount) : 0).toFixed(3);
-      const latestDateAvgExpressive = (dataCount > 0 ? (sumExpressive / dataCount) : 0).toFixed(3);
-      const latestDateAvgVibratoLongtone = (dataCount > 0 ? (sumVibratoLongtone / dataCount) : 0).toFixed(3);
-      const latestDateAvgRhythm = (dataCount > 0 ? (sumRhythm / dataCount) : 0).toFixed(3);
-      const latestDateAvgHearing = (dataCount > 0 ? (sumHearing / dataCount) : 0).toFixed(3);
+    // 最大値と平均値を計算し、変数に格納
+    const latestDateAvgPitch = (dataCount > 0 ? (sumPitch / dataCount) : 0).toFixed(3);
+    const latestDateAvgStability = (dataCount > 0 ? (sumStability / dataCount) : 0).toFixed(3);
+    const latestDateAvgExpressive = (dataCount > 0 ? (sumExpressive / dataCount) : 0).toFixed(3);
+    const latestDateAvgVibratoLongtone = (dataCount > 0 ? (sumVibratoLongtone / dataCount) : 0).toFixed(3);
+    const latestDateAvgRhythm = (dataCount > 0 ? (sumRhythm / dataCount) : 0).toFixed(3);
+    const latestDateAvgHearing = (dataCount > 0 ? (sumHearing / dataCount) : 0).toFixed(3);
 
 
-      return {
-        dateKey: latestDateKey,
-        maxTotalScore: maxTotalScore,
-        avgPitch:parseFloat(latestDateAvgPitch),
-        avgStability: parseFloat(latestDateAvgStability),
-        avgExpressive: parseFloat(latestDateAvgExpressive),
-        avgVibratoLongtone: parseFloat(latestDateAvgVibratoLongtone),
-        avgRhythm: parseFloat(latestDateAvgRhythm),
-        avgHearing: parseFloat(latestDateAvgHearing),
-      };
+    return {
+      dateKey: latestDateKey,
+      maxTotalScore: maxTotalScore,
+      avgPitch:parseFloat(latestDateAvgPitch),
+      avgStability: parseFloat(latestDateAvgStability),
+      avgExpressive: parseFloat(latestDateAvgExpressive),
+      avgVibratoLongtone: parseFloat(latestDateAvgVibratoLongtone),
+      avgRhythm: parseFloat(latestDateAvgRhythm),
+      avgHearing: parseFloat(latestDateAvgHearing),
+    };
 }
 
 
@@ -207,7 +207,7 @@ async function main() {
     const songDatasMostSung = GetSongDatasMostSung(records);
     configData.top5RequestNos = songDatasMostSung.top5RequestNos;
     configData.top5SongNames = songDatasMostSung.top5SongNames;
-    configData.top5ArtistName = songDatasMostSung.top5ArtistName;
+    configData.top5ArtistNames = songDatasMostSung.top5ArtistNames;
 
     // --採点日のカウント--
     recent7Dates = getRecent7Dates(records);
