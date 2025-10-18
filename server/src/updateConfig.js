@@ -2,8 +2,8 @@ const fs = require("fs");
 const { parse } = require("csv-parse");
 
 // ファイルパスを設定
-const csvFilePath = "./server/scoresHeart.csv";
-const jsonFilePath = "./server/config.json";
+const csvFilePath = "./server/scoresDxg.csv";
+const jsonFilePath = "./server/configDxg.json";
 
 
 
