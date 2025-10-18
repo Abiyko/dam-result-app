@@ -177,7 +177,7 @@ function calcLatestStates(targetRecords, latestDateKey) {
 }
 
 
-async function main() {
+function main() {
   // --ファイルの読み込み--
   const stream = fs.createReadStream(csvFilePath).pipe(
     parse({

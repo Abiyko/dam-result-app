@@ -6,7 +6,11 @@ const xml2js = require("xml2js");
 const parser = new xml2js.Parser();
 require("dotenv").config({ path: __dirname + "/.env" });
 
-// CSVから最新のscoringHeartsHistoryIdを読み取る関数
+urlHeart = "https://www.clubdam.com/app/damtomo/scoring/GetScoringHeartsListXML.do"
+scoringHistoryIdHeart = "scoringHeartsHistoryId"
+
+
+// CSVから最新のscoringHistoryIdを読み取る関数
 async function readCsvValue(filePath) {
   try {
     if (!fs.existsSync(filePath)) {
@@ -42,9 +46,7 @@ async function readCsvValue(filePath) {
 }
 
 // データを取得しCSVファイルに保存する関数
-async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
-  const url =
-    "https://www.clubdam.com/app/damtomo/scoring/GetScoringHeartsListXML.do";
+async function fetchDataAndSaveToCsv(url, scoringHistoryId, filePath, lastStoredId) {
   const detailFlg = "1";
   const allAcquiredData = [];
   let pageNo = 1;
@@ -85,7 +87,7 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
 
       for (const item of pageData) {
         const scoringId = parseInt(
-          item.scoringHearts[0].$.scoringHeartsHistoryId,
+          item.scoringHearts[0].$[scoringHistoryId],
           10
         );
         if (scoringId <= lastStoredId) {
@@ -123,8 +125,8 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
   }
 
   allAcquiredData.sort((a, b) => {
-    const idA = parseInt(a.scoringHearts[0].$.scoringHeartsHistoryId, 10);
-    const idB = parseInt(b.scoringHearts[0].$.scoringHeartsHistoryId, 10);
+    const idA = parseInt(a.scoringHearts[0].$[scoringHistoryId], 10);
+    const idB = parseInt(b.scoringHearts[0].$[scoringHistoryId], 10);
     return idA - idB;
   });
 
@@ -158,16 +160,23 @@ async function fetchDataAndSaveToCsv(filePath, lastStoredId) {
 
 async function main() {
   const path = require("path");
-  const filePath = path.join(__dirname, "..", "scoresHeart.csv");
-
-  const lastStoredId = await readCsvValue(filePath);
+  let filePath;
+  let url;
+  let scoringHistoryId;
+  let lastStoredId;
+  
+  exportFilename = "scoresHeart.csv"
+  filePath = path.join(__dirname, "..", exportFilename);
+  url = urlHeart;
+  scoringHistoryId = scoringHistoryIdHeart;
+  lastStoredId = await readCsvValue(filePath);
   if (lastStoredId) {
-    await fetchDataAndSaveToCsv(filePath, lastStoredId);
+    await fetchDataAndSaveToCsv(url, scoringHistoryId, filePath, lastStoredId);
   } else {
     console.log(
       "scoresHeart.csvにデータが見つかりませんでした。新しくデータを取得します。"
     );
-    await fetchDataAndSaveToCsv(filePath, null);
+    await fetchDataAndSaveToCsv(url, scoringHistoryId, filePath, null);
   }
 }
 

@@ -1,3 +1,6 @@
 node_modules/
 .env
+config.json
+scoresDxg.csv
+scoresAi.csv
 scoresHeart.csv
