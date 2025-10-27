@@ -40,6 +40,7 @@ function GetSongDatasMostSung(records) {
   const requestNoCounts = {};
   const artistNameCounts = {};
   const requestNoToSongName = {};
+  const requestNoToArtistName = {};
 
   records.forEach((record) => {
     const { requestNo, artistName, contentsName } = record;
@@ -52,12 +53,15 @@ function GetSongDatasMostSung(records) {
     if (!requestNoToSongName[requestNo] && contentsName) {
         requestNoToSongName[requestNo] = contentsName;
     }
+
+    // requestNoArtistNameの対応を記録
+    if (!requestNoToArtistName[requestNo] && artistName) {
+      requestNoToArtistName[requestNo] = artistName;
+    }
   });
 
   // 配列をソート
   const sortedRequestNoCounts = Object.entries(requestNoCounts)
-    .sort(([, countA], [, countB]) => countB - countA);
-  const sortedArtistNameCounts = Object.entries(artistNameCounts)
     .sort(([, countA], [, countB]) => countB - countA);
   
   // ソートされた配列から上位5つのキー（requestNo）を抽出
@@ -71,10 +75,11 @@ function GetSongDatasMostSung(records) {
       return requestNoToSongName[requestNo] || "不明な曲名";
   });
 
-  // ソートされた配列から上位5つのキー（artistName）を抽出
-  const top5ArtistNames = sortedArtistNameCounts
-    .slice(0, 5) // 配列の最初から5要素を抽出
-    .map(([requestNo,]) => requestNo); // 各要素の0番目（artistName）だけを抽出
+  // top5RequestNosに対応するアーティスト名を取得
+  const top5ArtistNames = top5RequestNos.map(requestNo => {
+      // requestNoToSongNameマップからアーティスト名を取得
+      return requestNoToArtistName[requestNo] || "不明なアーティスト名";
+  });
   
   return { top5RequestNos, top5SongNames, top5ArtistNames};
 }
@@ -82,6 +87,7 @@ function GetSongDatasMostSung(records) {
 
 function getRecent7Dates(records) {
   const recent7Dates = [];
+  const formatted7Dates = [];
   const seenDate = new Set();
 
   // 配列の末尾から先頭に向かってループ
@@ -94,6 +100,8 @@ function getRecent7Dates(records) {
     if (!seenDate.has(dateKey)) {
       seenDate.add(dateKey);
       recent7Dates.push(dateKey);
+      const formattedDate = dateKey.slice(0,4) + '/' + dateKey.slice(4,6) + '/' + dateKey.slice(6,8);
+      formatted7Dates.push(formattedDate);
 
       // 7種類集まったらループを終了
       if (recent7Dates.length >= 7) {
@@ -102,7 +110,7 @@ function getRecent7Dates(records) {
     }
   }
 
-  return recent7Dates;
+  return {recent7Dates, formatted7Dates};
 }
 
 
@@ -210,8 +218,10 @@ function main() {
     configData.top5ArtistNames = songDatasMostSung.top5ArtistNames;
 
     // --採点日のカウント--
-    recent7Dates = getRecent7Dates(records);
-    configData.recentDate = recent7Dates
+    recent7DatesData = getRecent7Dates(records);
+    recent7Dates = recent7DatesData.recent7Dates;
+    formatted7Dates = recent7DatesData.formatted7Dates;
+    configData.recentDate = formatted7Dates;
 
     // --指定された日付キーのレコードをグループ化--
     recent7DatesRecord = groupRecordsByDate(records, recent7Dates);
