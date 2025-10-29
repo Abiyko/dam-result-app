@@ -15,8 +15,9 @@ function getHighestScore(records) {
   if (totalScores.length > 0) {
     HighestScore = Math.max(...totalScores);
   }
+  highestScore = HighestScore / 1000;
 
-  return HighestScore
+  return highestScore
 }
 
 
@@ -145,7 +146,6 @@ function calcLatestStates(targetRecords, latestDateKey) {
   let sumExpressive = 0;
   let sumVibratoLongtone = 0;
   let sumRhythm = 0;
-  let sumHearing = 0;
 
   targetRecords.forEach(record => {
     // totalScore の最大値
@@ -153,35 +153,33 @@ function calcLatestStates(targetRecords, latestDateKey) {
     if (totalScore > maxTotalScore) {
       maxTotalScore = totalScore;
     }
-
+    
     // 各レーダーチャート項目の合計値
     sumPitch += parseFloat(record.radarChartPitch);
     sumStability += parseFloat(record.radarChartStability);
     sumExpressive += parseFloat(record.radarChartExpressive);
     sumVibratoLongtone += parseFloat(record.radarChartVibratoLongtone);
     sumRhythm += parseFloat(record.radarChartRhythm);
-    sumHearing += parseFloat(record.radarChartHearing);
   });
+  fixedMaxTotalScore = maxTotalScore / 1000;
+  
+  // 最大値と平均値を計算し、変数に格納
+  const latestDateAvgPitch = (dataCount > 0 ? (sumPitch / dataCount) : 0).toFixed(3);
+  const latestDateAvgStability = (dataCount > 0 ? (sumStability / dataCount) : 0).toFixed(3);
+  const latestDateAvgExpressive = (dataCount > 0 ? (sumExpressive / dataCount) : 0).toFixed(3);
+  const latestDateAvgVibratoLongtone = (dataCount > 0 ? (sumVibratoLongtone / dataCount) : 0).toFixed(3);
+  const latestDateAvgRhythm = (dataCount > 0 ? (sumRhythm / dataCount) : 0).toFixed(3);
 
-    // 最大値と平均値を計算し、変数に格納
-    const latestDateAvgPitch = (dataCount > 0 ? (sumPitch / dataCount) : 0).toFixed(3);
-    const latestDateAvgStability = (dataCount > 0 ? (sumStability / dataCount) : 0).toFixed(3);
-    const latestDateAvgExpressive = (dataCount > 0 ? (sumExpressive / dataCount) : 0).toFixed(3);
-    const latestDateAvgVibratoLongtone = (dataCount > 0 ? (sumVibratoLongtone / dataCount) : 0).toFixed(3);
-    const latestDateAvgRhythm = (dataCount > 0 ? (sumRhythm / dataCount) : 0).toFixed(3);
-    const latestDateAvgHearing = (dataCount > 0 ? (sumHearing / dataCount) : 0).toFixed(3);
 
-
-    return {
-      dateKey: latestDateKey,
-      maxTotalScore: maxTotalScore,
-      avgPitch:parseFloat(latestDateAvgPitch),
-      avgStability: parseFloat(latestDateAvgStability),
-      avgExpressive: parseFloat(latestDateAvgExpressive),
-      avgVibratoLongtone: parseFloat(latestDateAvgVibratoLongtone),
-      avgRhythm: parseFloat(latestDateAvgRhythm),
-      avgHearing: parseFloat(latestDateAvgHearing),
-    };
+  return {
+    dateKey: latestDateKey,
+    maxTotalScore: fixedMaxTotalScore,
+    avgPitch:parseFloat(latestDateAvgPitch),
+    avgStability: parseFloat(latestDateAvgStability),
+    avgExpressive: parseFloat(latestDateAvgExpressive),
+    avgVibratoLongtone: parseFloat(latestDateAvgVibratoLongtone),
+    avgRhythm: parseFloat(latestDateAvgRhythm),
+  };
 }
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script type="module" src="./readJson.js"></script>
+
     <header>
         <button class="header-item icon">icon</button>
         <button class="header-item description">About me</button>
@@ -25,6 +27,7 @@
             <div class="chart-area">
                 <span class="above-area">
                     <div class="chart">
+                        <div class="type">Ai Heart</div>
                         <div class="hexagon">
                             <div class="average-hexagon"></div>
                         </div>
@@ -37,14 +40,14 @@
                     </div>
                     <div class="record-nums-area">
                         <span class="record-days">
-                            <span>採点記録日</span>
-                            <span>YYYY/MM/DD</span>
-                            <span>YYYY/MM/DD</span>
-                            <span>YYYY/MM/DD</span>
-                            <span>YYYY/MM/DD</span>
-                            <span>YYYY/MM/DD</span>
-                            <span>YYYY/MM/DD</span>
-                            <span>YYYY/MM/DD</span>
+                            <span>最近の採点記録日</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
                         </span>
                         <span class="record-count">
                             <div class="center">9999</div>
@@ -55,12 +58,12 @@
                 </span>
                 <span class="score-area">
                     <div class="score">
-                        <div class="center">100.000</div>
+                        <div class="center latest-best-score">100.000</div>
                         <div class="top-left">直近の最高点</div>
                         <div class="bottom-right">点</div>
                     </div>
                     <div class="score">
-                        <div class="center">100.000</div>
+                        <div class="center best-score">100.000</div>
                         <div class="top-left">最高点</div>
                         <div class="bottom-right">点</div>
                     </div>
@@ -96,6 +99,7 @@
                     <div class="artist-name bottom-right">artist-name-5</div>
                 </span>
             </div>
+
             <div class="favorite-songs-area">
                 <span>お気に入り曲</span>
                 <span>

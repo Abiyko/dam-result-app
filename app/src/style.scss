@@ -30,25 +30,25 @@ $hexagon-margin: $chart-area-height / 8;
 $hexagon-height: $above-area-height - $hexagon-margin * 2;
 $hexagon-width: $hexagon-height * sqrt(3) / 2;
 
-$avgPitch: 89.455;
-$avgStability: 73.182;
-$avgExpressive: 81.909;
-$avgVibratoLongtone: 90.409;
-$avgRhythm: 97.136;
-$avgHearing: 75.045;
+// $avgPitch: 10;
+// $avgStability: 10;
+// $avgExpressive: 10;
+// $avgVibratoLongtone: 10;
+// $avgRhythm: 10;
+// $avgHearing: 10;
 
-$pitch-x: $hexagon-width * 0.5;
-$pitch-y: $hexagon-height * (0.5 - $avgPitch / 200);
-$stability-x: $hexagon-width * (0.5 + $avgStability / 200);
-$stability-y: $hexagon-height * (0.5 - $avgStability / 400);
-$expressive-x: $hexagon-width * (0.5 + $avgExpressive / 200);
-$expressive-y: $hexagon-height * (0.5 + $avgExpressive / 400);
-$hearing-x: $hexagon-width * 0.5;
-$hearing-y: $hexagon-height * (0.5 + $avgHearing / 200);
-$rhythm-x: $hexagon-width * (0.5 - $avgRhythm / 200);
-$rhythm-y: $hexagon-height * (0.5 + $avgRhythm / 400);
-$vibratoLongtone-x: $hexagon-width * (0.5 - $avgVibratoLongtone / 200);
-$vibratoLongtone-y: $hexagon-height * (0.5 - $avgVibratoLongtone / 400);
+// $pitch-x: $hexagon-width * 0.5;
+// $pitch-y: $hexagon-height * (0.5 - $avgPitch / 200);
+// $stability-x: $hexagon-width * (0.5 + $avgStability / 200);
+// $stability-y: $hexagon-height * (0.5 - $avgStability / 400);
+// $expressive-x: $hexagon-width * (0.5 + $avgExpressive / 200);
+// $expressive-y: $hexagon-height * (0.5 + $avgExpressive / 400);
+// $hearing-x: $hexagon-width * 0.5;
+// $hearing-y: $hexagon-height * (0.5 + $avgHearing / 200);
+// $rhythm-x: $hexagon-width * (0.5 - $avgRhythm / 200);
+// $rhythm-y: $hexagon-height * (0.5 + $avgRhythm / 400);
+// $vibratoLongtone-x: $hexagon-width * (0.5 - $avgVibratoLongtone / 200);
+// $vibratoLongtone-y: $hexagon-height * (0.5 - $avgVibratoLongtone / 400);
 
 
 body {
@@ -148,6 +148,14 @@ main {
                     margin-right: $margin;
                     position: relative;
 
+                    & > .type {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 0%;
+                        left: $margin;
+                    }
+
                     & > .hexagon {
                         background-color: $cGray;
                         height: $hexagon-height;
@@ -161,7 +169,7 @@ main {
                         background-color: $cBlack;
                         height: $hexagon-height;
                         width: $hexagon-width;
-                        clip-path: polygon($pitch-x $pitch-y, $stability-x $stability-y, $expressive-x $expressive-y, $hearing-x $hearing-y, $rhythm-x $rhythm-y, $vibratoLongtone-x $vibratoLongtone-y);
+                        // clip-path: polygon($pitch-x $pitch-y, $stability-x $stability-y, $expressive-x $expressive-y, $hearing-x $hearing-y, $rhythm-x $rhythm-y, $vibratoLongtone-x $vibratoLongtone-y);
                         margin-top: $hexagon-margin;
                         margin-left: 50%;
                         transform: translate(-50%, 0%);
@@ -348,10 +356,17 @@ main {
                 }
 
                 & > .song-name {
-                    font-size: $top5-height;
-                    display: flex;
-                    align-items: center;
                     margin-left: $margin;
+                    display: flex;
+                    font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
+                }
+
+                & > .artist-name {
+                    // font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
                 }
             }
         }
@@ -378,10 +393,17 @@ main {
                 }
 
                 & > .song-name {
-                    font-size: $top5-height;
-                    display: flex;
-                    align-items: center;
                     margin-left: $margin;
+                    display: flex;
+                    font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
+                }
+
+                & > .artist-name {
+                    // font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
                 }
             }
         }
@@ -390,7 +412,7 @@ main {
 
 .top-left {
     position: relative;
-    left: -10%;
+    margin-left: - $margin;
 }
 
 .center {
@@ -403,6 +425,6 @@ main {
 .bottom-right {
     position: relative;
     margin-top: auto;
-    margin-left: auto;
     margin-right: $margin;
+    margin-left: auto;
 }
