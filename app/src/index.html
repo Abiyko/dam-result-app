@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script type="module" src="./readJson.js"></script>
+
+    <header>
+        <button class="header-item icon">icon</button>
+        <button class="header-item description">About me</button>
+        <div class="header-item title">あびぃのカラオケDAM採点記録</div>
+        <button class="header-item menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <span class="horizontal-line"></span>
+
+    <main>
+        <span class="records-area">
+            <div class="chart-area">
+                <span class="above-area">
+                    <div class="chart">
+                        <div class="type">Ai Heart</div>
+                        <div class="hexagon">
+                            <div class="average-hexagon"></div>
+                        </div>
+                        <div class="pitch">音程</div>
+                        <div class="stability">安定性</div>
+                        <div class="expressive">表現力</div>
+                        <div class="hearing">聴感</div>
+                        <div class="rhythm">リズム</div>
+                        <div class="vibrato-longtone">ビブラート＆<br>ロングトーン</div>
+                    </div>
+                    <div class="record-nums-area">
+                        <span class="record-days">
+                            <span>最近の採点記録日</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                            <span class="date">YYYY/MM/DD</span>
+                        </span>
+                        <span class="record-count">
+                            <div class="center">9999</div>
+                            <div class="top-left">今年の記録数</div>
+                            <div class="bottom-right">曲</div>
+                        </span>
+                    </div>
+                </span>
+                <span class="score-area">
+                    <div class="score">
+                        <div class="center latest-best-score">100.000</div>
+                        <div class="top-left">直近の最高点</div>
+                        <div class="bottom-right">点</div>
+                    </div>
+                    <div class="score">
+                        <div class="center best-score">100.000</div>
+                        <div class="top-left">最高点</div>
+                        <div class="bottom-right">点</div>
+                    </div>
+                </span>
+            </div>
+            <div class="type-select-area">
+                <button>精密採点DX-G</button>
+                <button>精密採点Ai</button>
+                <button>精密採点Ai Heart</button>
+            </div>
+        </span>
+        <span class="top5-area">
+            <div class="top5-songs-area">
+                <span>定番曲</span>
+                <span>
+                    <div class="song-name">song-name-1</div>
+                    <div class="artist-name bottom-right">artist-name-1</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-2</div>
+                    <div class="artist-name bottom-right">artist-name-2</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-3</div>
+                    <div class="artist-name bottom-right">artist-name-3</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-4</div>
+                    <div class="artist-name bottom-right">artist-name-4</div>
+                </span>
+                <span>
+                    <div class="song-name ">song-name-5</div>
+                    <div class="artist-name bottom-right">artist-name-5</div>
+                </span>
+            </div>
+
+            <div class="favorite-songs-area">
+                <span>お気に入り曲</span>
+                <span>
+                    <div class="song-name">song-name-1</div>
+                    <div class="artist-name bottom-right">artist-name-1</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-2</div>
+                    <div class="artist-name bottom-right">artist-name-2</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-3</div>
+                    <div class="artist-name bottom-right">artist-name-3</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-4</div>
+                    <div class="artist-name bottom-right">artist-name-4</div>
+                </span>
+                <span>
+                    <div class="song-name">song-name-5</div>
+                    <div class="artist-name bottom-right">artist-name-5</div>
+                </span>
+            </div>
+        </span>
+    </main>
+</body>
+</html>

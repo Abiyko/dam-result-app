@@ -1,0 +1,430 @@
+$cWhite: white;
+$cGray: #D0D0D0;
+$cBlack: black;
+
+$default-font-size: 7vh;
+$header-height: 7.8125vh;
+$margin: $header-height * 0.25;
+$icon-size: $header-height * 0.5;
+$line-thickness: 0.25vh;
+$menu-span-width: $header-height * 0.7071;
+$menu-span-padding: ($icon-size - (3 * $line-thickness)) / 2;
+$records-area-width: 62.986vw;
+$type-button-height: 8.7890625vh;
+$type-button-width: calc(($records-area-width - $margin * 2) / 3);
+$main-height: 100vh - $header-height - $line-thickness - $margin * 2;
+$chart-area-height: $main-height - $type-button-height - $margin;
+$top5-area-width: calc(100vw - $records-area-width - $margin * 3);
+$score-area-width: calc($records-area-width - $margin * 2);
+$above-area-height: $chart-area-height - $type-button-height - $margin * 3;
+$chart-width: $records-area-width * 0.71;
+$record-nums-area-width: calc($records-area-width - $chart-width - $margin * 3);
+$score-width: calc(($score-area-width - $margin) / 2);
+$record-days-height: $above-area-height - $type-button-height - $margin;
+$top5-height: $type-button-height / 2;
+$top5-width: calc($top5-area-width - $margin * 2);
+$top5-margin: $top5-height / 5;
+$top5-title-size: $top5-height /2;
+$top5-area-height: $top5-height * 6 + $top5-margin *4 + $margin * 5;
+$hexagon-margin: $chart-area-height / 8;
+$hexagon-height: $above-area-height - $hexagon-margin * 2;
+$hexagon-width: $hexagon-height * sqrt(3) / 2;
+
+// $avgPitch: 10;
+// $avgStability: 10;
+// $avgExpressive: 10;
+// $avgVibratoLongtone: 10;
+// $avgRhythm: 10;
+// $avgHearing: 10;
+
+// $pitch-x: $hexagon-width * 0.5;
+// $pitch-y: $hexagon-height * (0.5 - $avgPitch / 200);
+// $stability-x: $hexagon-width * (0.5 + $avgStability / 200);
+// $stability-y: $hexagon-height * (0.5 - $avgStability / 400);
+// $expressive-x: $hexagon-width * (0.5 + $avgExpressive / 200);
+// $expressive-y: $hexagon-height * (0.5 + $avgExpressive / 400);
+// $hearing-x: $hexagon-width * 0.5;
+// $hearing-y: $hexagon-height * (0.5 + $avgHearing / 200);
+// $rhythm-x: $hexagon-width * (0.5 - $avgRhythm / 200);
+// $rhythm-y: $hexagon-height * (0.5 + $avgRhythm / 400);
+// $vibratoLongtone-x: $hexagon-width * (0.5 - $avgVibratoLongtone / 200);
+// $vibratoLongtone-y: $hexagon-height * (0.5 - $avgVibratoLongtone / 400);
+
+
+body {
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    height: $header-height;
+    width: 100vw;
+    .header-item {
+        margin: $margin;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        
+        &.icon {
+            height: $icon-size;
+            width: $icon-size;
+            background-color: $cGray;
+        }
+        &.description {
+            height: $margin;
+            margin-top: $icon-size;
+            margin-right: 0px;
+            margin-left: 0px;
+            font-size: $margin;
+        }
+
+        &.title {
+            height: $icon-size;
+            width: auto;
+            white-space: nowrap;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: $icon-size;
+        }
+
+        &.menu-icon {
+            height: $icon-size;
+            width: $menu-span-width;
+            margin-left: auto;
+            flex-direction: column;
+            padding: 0px;
+
+            & > span {
+                background-color: $cBlack;
+                height: $line-thickness;
+                width: $menu-span-width;
+                margin-bottom: $menu-span-padding;
+                display: block;
+
+                &:last-child {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+    }
+}
+
+.horizontal-line {
+    background-color: $cBlack;
+    height: $line-thickness;
+    width: 100vw;
+    margin: 0;
+    display: block;
+}
+
+main {
+    display: flex;
+
+    .records-area {
+        height: $main-height;
+        width: $records-area-width;
+        margin: $margin;
+        // display: block;
+
+        & > .chart-area {
+            background-color: $cGray;
+            height: $chart-area-height;
+            width: $records-area-width;
+            display: inline-block;
+
+            & > .above-area {
+                height: $above-area-height;
+                width: $score-area-width;
+                margin: $margin;
+                display: flex;
+
+                & > .chart {
+                    background-color: $cWhite;
+                    height: $above-area-height;
+                    width: $score-area-width;
+                    margin-right: $margin;
+                    position: relative;
+
+                    & > .type {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 0%;
+                        left: $margin;
+                    }
+
+                    & > .hexagon {
+                        background-color: $cGray;
+                        height: $hexagon-height;
+                        width: $hexagon-width;
+                        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                        margin-top: $hexagon-margin;
+                        margin-left: 50%;
+                        transform: translate(-50%, 0%);
+
+                        & > .average-hexagon {
+                        background-color: $cBlack;
+                        height: $hexagon-height;
+                        width: $hexagon-width;
+                        // clip-path: polygon($pitch-x $pitch-y, $stability-x $stability-y, $expressive-x $expressive-y, $hearing-x $hearing-y, $rhythm-x $rhythm-y, $vibratoLongtone-x $vibratoLongtone-y);
+                        margin-top: $hexagon-margin;
+                        margin-left: 50%;
+                        transform: translate(-50%, 0%);
+                        }
+                    }
+
+                    & > .pitch {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 15%;
+                        left: 50%;
+                        transform: translate(-50%, -100%);
+                    }
+
+                    & > .stability {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 30%;
+                        left: 80%;
+                        transform: translate(0%, -50%);
+                    }
+
+                    & > .expressive {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 70%;
+                        left: 80%;
+                        transform: translate(0%, -50%);
+                    }
+
+                    & > .hearing {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 85%;
+                        left: 50%;
+                        transform: translate(-50%, 0%);
+                    }
+
+                    & > .rhythm {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 70%;
+                        left: 20%;
+                        transform: translate(-100%, -50%);
+                    }
+
+                    & > .vibrato-longtone {
+                        // font-size: $top5-title-size;
+                        white-space: nowrap;
+                        position: absolute;
+                        top: 30%;
+                        left: 20%;
+                        transform: translate(-100%, -50%);
+                    }
+                }
+
+                & > .record-nums-area {
+                    height: $above-area-height;
+                    width: $record-nums-area-width;
+                    margin-left: auto;
+                    // display: block;
+
+                    & > .record-days {
+                        height: $record-days-height;
+                        width: $record-nums-area-width;
+                        display: block;
+
+                        & > span {
+                            // background-color: $cWhite;
+                            height: $top5-height;
+                            width: $record-nums-area-width;
+                            margin-bottom: $top5-margin;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: $top5-title-size;
+
+                            &:first-child {
+                                background-color: transparent;
+                                margin-bottom: $margin;
+                                justify-content: left;
+                                font-size: $top5-title-size;
+                                white-space: nowrap;
+                            }
+                        }
+                    }
+
+                    & > .record-count {
+                        background-color: $cWhite;
+                        height: $type-button-height;
+                        width: $record-nums-area-width;
+                        margin-top: $margin;
+                        display: flex;
+
+                        & > div {
+                            font-size: $top5-title-size;
+                            white-space: nowrap;
+                            display: flex;
+                        }
+                    }
+                }
+            }
+
+            & > .score-area {
+                height: $type-button-height;
+                width: $score-area-width;
+                margin-left: $margin;
+                display: inline-flex;
+
+                & > .score {
+                    background-color: $cWhite;
+                    height: $type-button-height;
+                    width: $score-width;
+                    display: flex;
+                    font-size: $top5-title-size;
+
+                    &:first-child {
+                        margin-right: $margin;
+                    }
+
+                    & > div {
+                        font-size: $top5-title-size;
+                        white-space: nowrap;
+                        display: flex;
+                    }
+                }
+            }
+        }
+
+        & > .type-select-area {
+            height: $type-button-height;
+            width: $records-area-width;
+            margin-top: $margin;
+            display: inline-flex;
+
+            & > button {
+                background-color: $cGray;
+                border: none;
+                height: $type-button-height;
+                width: $type-button-width;
+                margin-right: $margin;
+                display: flex;
+                font-size: $top5-title-size;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
+
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+        }
+    }
+
+    .top5-area {
+        height: $main-height;
+        width: $top5-area-width;
+        margin-top: $margin;
+        display: block;
+
+        & > .top5-songs-area {
+            background-color: $cGray;
+            height: $top5-area-height;
+            width: $top5-area-width;
+
+            & > span {
+                background-color: $cWhite;
+                height: $top5-height;
+                width: $top5-width;
+                margin-left: $margin;
+                margin-bottom: $top5-margin;
+                display: inline-flex;
+
+                &:first-child {
+                    background-color: transparent;
+                    margin: $margin;
+                    font-size: $top5-title-size;
+                    white-space: nowrap;
+                }
+
+                & > .song-name {
+                    margin-left: $margin;
+                    display: flex;
+                    font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
+                }
+
+                & > .artist-name {
+                    // font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
+                }
+            }
+        }
+
+        & > .favorite-songs-area {
+            background-color: $cGray;
+            height: $top5-area-height;
+            width: $top5-area-width;
+            margin-top: $margin;
+
+            & > span {
+                background-color: $cWhite;
+                height: $top5-height;
+                width: $top5-width;
+                margin-left: $margin;
+                margin-bottom: $top5-margin;
+                display: inline-flex;
+
+                &:first-child {
+                    background-color: transparent;
+                    margin: $margin;
+                    font-size: $top5-title-size;
+                    white-space: nowrap;
+                }
+
+                & > .song-name {
+                    margin-left: $margin;
+                    display: flex;
+                    font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
+                }
+
+                & > .artist-name {
+                    // font-size: $top5-title-size;
+                    white-space: nowrap;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
+
+.top-left {
+    position: relative;
+    margin-left: - $margin;
+}
+
+.center {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.bottom-right {
+    position: relative;
+    margin-top: auto;
+    margin-right: $margin;
+    margin-left: auto;
+}
