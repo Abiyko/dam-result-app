@@ -4,6 +4,7 @@ const CONFIG_HEART_FILE_PATH = "../../server/configHeart.json";
 const FAVORITES_FILE_PATH = "../../server/favorites.json";
 
 
+
 async function fetchConfig() {
     const response = await fetch(CONFIG_HEART_FILE_PATH);
 
@@ -37,6 +38,43 @@ async function fetchFavorites() {
         console.error('設定ファイルの読み込み中にエラーが発生しました:', error);
         return null;
     }
+}
+
+
+function updateAverageChart(data) {
+    const averageChart = document.querySelector('.average-hexagon');
+    const avgPitch = data["latestDateStats"]["avgPitch"];
+    const avgStability = data["latestDateStats"]["avgStability"];
+    const avgExpressive = data["latestDateStats"]["avgExpressive"];
+    const avgVibratoLongtone = data["latestDateStats"]["avgVibratoLongtone"];
+    const avgRhythm = data["latestDateStats"]["avgRhythm"];
+    const avgHearing = data["latestDateStats"]["avgHearing"];
+
+    const rect = averageChart.getBoundingClientRect();
+    const hexagonHeight = rect.height;
+    const hexagonWidth = rect.width;
+    const pitchX = hexagonWidth * 0.5;
+    const pitchY = hexagonHeight * (0.5 - avgPitch / 200);
+    const stabilityX = hexagonWidth * (0.5 + avgStability / 200);
+    const stabilityY = hexagonHeight * (0.5 - avgStability / 400);
+    const expressiveX = hexagonWidth * (0.5 + avgExpressive / 200);
+    const expressiveY = hexagonHeight * (0.5 + avgExpressive / 400);
+    const hearingX = hexagonWidth * 0.5;
+    const hearingY = hexagonHeight * (0.5 + avgHearing / 200);
+    const rhythmX = hexagonWidth * (0.5 - avgRhythm / 200);
+    const rhythmY = hexagonHeight * (0.5 + avgRhythm / 400);
+    const vibratoLongtoneX = hexagonWidth * (0.5 - avgVibratoLongtone / 200);
+    const vibratoLongtoneY = hexagonHeight * (0.5 - avgVibratoLongtone / 400);
+    const chartPath = `polygon(
+        ${pitchX}px ${pitchY}px,
+        ${stabilityX}px ${stabilityY}px,
+        ${expressiveX}px ${expressiveY}px,
+        ${hearingX}px ${hearingY}px,
+        ${rhythmX}px ${rhythmY}px,
+        ${vibratoLongtoneX}px ${vibratoLongtoneY}px
+    )`;
+    averageChart.style.clipPath = chartPath;
+    return;
 }
 
 
@@ -113,38 +151,7 @@ function renderData(data, favorites) {
     });
 
     // 平均チャートの反映
-    const averageChart = document.querySelector('.average-hexagon');
-    const avgPitch = data["latestDateStats"]["avgPitch"];
-    const avgStability = data["latestDateStats"]["avgStability"];
-    const avgExpressive = data["latestDateStats"]["avgExpressive"];
-    const avgVibratoLongtone = data["latestDateStats"]["avgVibratoLongtone"];
-    const avgRhythm = data["latestDateStats"]["avgRhythm"];
-    const avgHearing = data["latestDateStats"]["avgHearing"];
-
-    const rect = averageChart.getBoundingClientRect();
-    const hexagonHeight = rect.height;
-    const hexagonWidth = rect.width;
-    const pitchX = hexagonWidth * 0.5;
-    const pitchY = hexagonHeight * (0.5 - avgPitch / 200);
-    const stabilityX = hexagonWidth * (0.5 + avgStability / 200);
-    const stabilityY = hexagonHeight * (0.5 - avgStability / 400);
-    const expressiveX = hexagonWidth * (0.5 + avgExpressive / 200);
-    const expressiveY = hexagonHeight * (0.5 + avgExpressive / 400);
-    const hearingX = hexagonWidth * 0.5;
-    const hearingY = hexagonHeight * (0.5 + avgHearing / 200);
-    const rhythmX = hexagonWidth * (0.5 - avgRhythm / 200);
-    const rhythmY = hexagonHeight * (0.5 + avgRhythm / 400);
-    const vibratoLongtoneX = hexagonWidth * (0.5 - avgVibratoLongtone / 200);
-    const vibratoLongtoneY = hexagonHeight * (0.5 - avgVibratoLongtone / 400);
-    const chartPath = `polygon(
-        ${pitchX}px ${pitchY}px,
-        ${stabilityX}px ${stabilityY}px,
-        ${expressiveX}px ${expressiveY}px,
-        ${hearingX}px ${hearingY}px,
-        ${rhythmX}px ${rhythmY}px,
-        ${vibratoLongtoneX}px ${vibratoLongtoneY}px
-    )`;
-    averageChart.style.clipPath = chartPath;
+    updateAverageChart(data);
 }
 
 
@@ -152,8 +159,10 @@ async function initApp() {
     const config = await fetchConfig();
     const favorites = await fetchFavorites();
     renderData(config, favorites);
+    const data = config
+    updateAverageChart(data); 
+    window.addEventListener('resize', () => updateAverageChart(data));
 }
-
 
 
 initApp();
