@@ -59,10 +59,8 @@ function updateAverageChart(data) {
     const stabilityY = hexagonHeight * (0.5 - avgStability / 400);
     const expressiveX = hexagonWidth * (0.5 + avgExpressive / 200);
     const expressiveY = hexagonHeight * (0.5 + avgExpressive / 400);
-    // if (avgHearing !== undefined) {
-        const hearingX = hexagonWidth * 0.5;
-        const hearingY = hexagonHeight * (0.5 + avgHearing / 200);
-    // }
+    const hearingX = hexagonWidth * 0.5;
+    const hearingY = hexagonHeight * (0.5 + avgHearing / 200);
     const rhythmX = hexagonWidth * (0.5 - avgRhythm / 200);
     const rhythmY = hexagonHeight * (0.5 + avgRhythm / 400);
     const vibratoLongtoneX = hexagonWidth * (0.5 - avgVibratoLongtone / 200);
