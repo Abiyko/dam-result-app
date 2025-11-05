@@ -1,0 +1,46 @@
+{
+  "highestScore": 95.97,
+  "recordCountByYear": {
+    "2025": 200
+  },
+  "top5RequestNos": [
+    "3318-03",
+    "1025-65",
+    "3521-75",
+    "4400-73",
+    "7638-86"
+  ],
+  "top5SongNames": [
+    "[生音]君の知らない物語",
+    "Nocturnal Night Fever",
+    "星が降るユメ",
+    "ふゆびより",
+    "シャルル"
+  ],
+  "top5ArtistNames": [
+    "supercell",
+    "天月/狂蘭メロコ/八雲べに/ライト",
+    "藍井エイル",
+    "佐々木恵梨",
+    "バルーン"
+  ],
+  "recentDate": [
+    "2025/09/18",
+    "2025/09/11",
+    "2025/08/12",
+    "2025/08/08",
+    "2025/07/02",
+    "2025/06/21",
+    "2025/06/18"
+  ],
+  "latestDateStats": {
+    "dateKey": "20250918",
+    "maxTotalScore": 94.892,
+    "avgPitch": 89.455,
+    "avgStability": 73.182,
+    "avgExpressive": 81.909,
+    "avgVibratoLongtone": 90.409,
+    "avgRhythm": 97.136,
+    "avgHearing": 75.045
+  }
+}

@@ -15,42 +15,44 @@ header .header-item {
   background-color: transparent;
   border: none;
 }
-header .header-item.icon {
+header .header-item#icon {
   height: 3.90625vh;
   width: 3.90625vh;
   background-color: #D0D0D0;
 }
-header .header-item.description {
+header .header-item#description {
   height: 1.953125vh;
   margin-top: 3.90625vh;
   margin-right: 0px;
   margin-left: 0px;
-  font-size: 1.953125vh;
+  font-size: 1vw;
 }
-header .header-item.title {
+header .header-item#title {
   height: 3.90625vh;
   width: auto;
   white-space: nowrap;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  font-size: 3.90625vh;
+  font-size: 2vw;
 }
-header .header-item.menu-icon {
+header .header-item#menu-icon {
   height: 3.90625vh;
   width: 5.52421875vh;
   margin-left: auto;
   flex-direction: column;
+  z-index: 2;
   padding: 0px;
 }
-header .header-item.menu-icon > span {
+header .header-item#menu-icon > span {
   background-color: black;
   height: 0.25vh;
   width: 5.52421875vh;
   margin-bottom: 1.578125vh;
   display: block;
+  transition: transform 0.7s;
 }
-header .header-item.menu-icon > span:last-child {
+header .header-item#menu-icon > span:last-child {
   margin-bottom: 0px;
 }
 
@@ -90,7 +92,7 @@ main .records-area > .chart-area > .above-area > .chart {
   position: relative;
 }
 main .records-area > .chart-area > .above-area > .chart > .type {
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
   position: absolute;
   top: 0%;
@@ -106,7 +108,7 @@ main .records-area > .chart-area > .above-area > .chart > .hexagon {
   transform: translate(-50%, 0%);
 }
 main .records-area > .chart-area > .above-area > .chart > .hexagon > .average-hexagon {
-  background-color: black;
+  background-color: white;
   height: 43.318359375vh;
   width: 37.514799669vh;
   margin-top: 9.6611328125vh;
@@ -114,7 +116,7 @@ main .records-area > .chart-area > .above-area > .chart > .hexagon > .average-he
   transform: translate(-50%, 0%);
 }
 main .records-area > .chart-area > .above-area > .chart > .pitch {
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
   position: absolute;
   top: 15%;
@@ -122,7 +124,7 @@ main .records-area > .chart-area > .above-area > .chart > .pitch {
   transform: translate(-50%, -100%);
 }
 main .records-area > .chart-area > .above-area > .chart > .stability {
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
   position: absolute;
   top: 30%;
@@ -130,7 +132,7 @@ main .records-area > .chart-area > .above-area > .chart > .stability {
   transform: translate(0%, -50%);
 }
 main .records-area > .chart-area > .above-area > .chart > .expressive {
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
   position: absolute;
   top: 70%;
@@ -138,7 +140,7 @@ main .records-area > .chart-area > .above-area > .chart > .expressive {
   transform: translate(0%, -50%);
 }
 main .records-area > .chart-area > .above-area > .chart > .hearing {
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
   position: absolute;
   top: 85%;
@@ -146,7 +148,7 @@ main .records-area > .chart-area > .above-area > .chart > .hearing {
   transform: translate(-50%, 0%);
 }
 main .records-area > .chart-area > .above-area > .chart > .rhythm {
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
   position: absolute;
   top: 70%;
@@ -154,11 +156,18 @@ main .records-area > .chart-area > .above-area > .chart > .rhythm {
   transform: translate(-100%, -50%);
 }
 main .records-area > .chart-area > .above-area > .chart > .vibrato-longtone {
+  font-size: 1vw;
   white-space: nowrap;
   position: absolute;
   top: 30%;
-  left: 20%;
+  left: 25%;
   transform: translate(-100%, -50%);
+}
+main .records-area > .chart-area > .above-area > .chart > div {
+  text-align: center;
+}
+main .records-area > .chart-area > .above-area > .chart > div .average-value {
+  font-size: 1.5vw;
 }
 main .records-area > .chart-area > .above-area > .record-nums-area {
   height: 62.640625vh;
@@ -177,14 +186,17 @@ main .records-area > .chart-area > .above-area > .record-nums-area > .record-day
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 main .records-area > .chart-area > .above-area > .record-nums-area > .record-days > span:first-child {
   background-color: transparent;
+  display: block;
   margin-bottom: 1.953125vh;
   justify-content: left;
-  font-size: 2.197265625vh;
-  white-space: nowrap;
+  font-size: 1.5vw;
 }
 main .records-area > .chart-area > .above-area > .record-nums-area > .record-count {
   background-color: white;
@@ -194,9 +206,19 @@ main .records-area > .chart-area > .above-area > .record-nums-area > .record-cou
   display: flex;
 }
 main .records-area > .chart-area > .above-area > .record-nums-area > .record-count > div {
-  font-size: 2.197265625vh;
+  font-size: 1vw;
   white-space: nowrap;
   display: flex;
+}
+main .records-area > .chart-area > .above-area > .record-nums-area > .record-count > div:nth-child(1) {
+  font-size: 1.5vw;
+}
+main .records-area > .chart-area > .above-area > .record-nums-area > .record-count > div:nth-child(2) {
+  left: 1.953125vh;
+}
+main .records-area > .chart-area > .above-area > .record-nums-area > .record-count > div:nth-child(3) {
+  transform: translateX(-100%);
+  right: 1.953125vh;
 }
 main .records-area > .chart-area > .score-area {
   height: 8.7890625vh;
@@ -209,15 +231,20 @@ main .records-area > .chart-area > .score-area > .score {
   height: 8.7890625vh;
   width: calc((62.986vw - 3.90625vh - 1.953125vh) / 2);
   display: flex;
-  font-size: 2.197265625vh;
+  font-size: 1vw;
 }
 main .records-area > .chart-area > .score-area > .score:first-child {
   margin-right: 1.953125vh;
 }
 main .records-area > .chart-area > .score-area > .score > div {
-  font-size: 2.197265625vh;
   white-space: nowrap;
   display: flex;
+}
+main .records-area > .chart-area > .score-area > .score > div:nth-child(1) {
+  font-size: 1.5vw;
+}
+main .records-area > .chart-area > .score-area > .score > div:nth-child(3) {
+  margin-right: 1.953125vh;
 }
 main .records-area > .type-select-area {
   height: 8.7890625vh;
@@ -232,7 +259,7 @@ main .records-area > .type-select-area > button {
   width: calc((62.986vw - 3.90625vh) / 3);
   margin-right: 1.953125vh;
   display: flex;
-  font-size: 2.197265625vh;
+  font-size: 2vw;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
@@ -262,18 +289,24 @@ main .top5-area > .top5-songs-area > span {
 main .top5-area > .top5-songs-area > span:first-child {
   background-color: transparent;
   margin: 1.953125vh;
-  font-size: 2.197265625vh;
+  font-size: 2vw;
   white-space: nowrap;
 }
 main .top5-area > .top5-songs-area > span > .song-name {
+  width: calc((37.014vw - 5.859375vh - 3.90625vh) * 3 / 4);
   margin-left: 1.953125vh;
-  display: flex;
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   align-items: center;
 }
 main .top5-area > .top5-songs-area > span > .artist-name {
+  width: calc((37.014vw - 5.859375vh - 3.90625vh) / 4);
+  font-size: 1vw;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   align-items: center;
 }
 main .top5-area > .favorite-songs-area {
@@ -293,24 +326,78 @@ main .top5-area > .favorite-songs-area > span {
 main .top5-area > .favorite-songs-area > span:first-child {
   background-color: transparent;
   margin: 1.953125vh;
-  font-size: 2.197265625vh;
+  font-size: 2vw;
   white-space: nowrap;
 }
 main .top5-area > .favorite-songs-area > span > .song-name {
+  width: calc((37.014vw - 5.859375vh - 3.90625vh) * 3 / 4);
+  max-width: calc((37.014vw - 5.859375vh - 3.90625vh) * 3 / 4);
   margin-left: 1.953125vh;
-  display: flex;
-  font-size: 2.197265625vh;
+  font-size: 1.5vw;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   align-items: center;
 }
 main .top5-area > .favorite-songs-area > span > .artist-name {
+  width: calc((37.014vw - 5.859375vh - 3.90625vh) / 4);
+  font-size: 1vw;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   align-items: center;
 }
 
+#menu-area {
+  background-color: #D0D0D0;
+  height: 100vh;
+  width: 15vw;
+  position: fixed;
+  top: 0;
+  right: -15vw;
+  z-index: 1;
+  transition: transform 0.7s;
+}
+#menu-area > ul {
+  margin-top: 19.53125vh;
+}
+#menu-area > ul > li {
+  list-style: none;
+  font-size: 1.5vw;
+  margin-bottom: 1.953125vh;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#menu-area > ul > li:nth-child(1) > span {
+  color: white;
+}
+#menu-area > ul > #login-btn {
+  background-color: transparent;
+  border: none;
+  display: block;
+  font-size: 1vw;
+  margin-top: 39.6484375vh;
+  margin-bottom: 0;
+}
+#menu-area > ul > #login-btn:hover {
+  background-color: white;
+}
+#menu-area > ul > #update-btn {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5vw;
+  margin-top: 1.953125vh;
+}
+#menu-area > ul > #update-btn:hover {
+  background-color: white;
+}
+
 .top-left {
+  left: 1.953125vh;
   position: relative;
-  margin-left: -1.953125vh;
+  transform-origin: left;
+  transform: translate(-50%, 0%);
 }
 
 .center {
@@ -323,6 +410,25 @@ main .top5-area > .favorite-songs-area > span > .artist-name {
 .bottom-right {
   position: relative;
   margin-top: auto;
-  margin-right: 1.953125vh;
   margin-left: auto;
+}
+
+.menu-open > header > #menu-icon > span {
+  transition: transform 0.7s;
+}
+.menu-open > header > #menu-icon > span:nth-child(1) {
+  transform: rotateY(180deg) rotateZ(45deg) translateX(5.52421875vh);
+  transform-origin: right;
+}
+.menu-open > header > #menu-icon > span:nth-child(2) {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.menu-open > header > #menu-icon > span:nth-child(3) {
+  transform: rotateY(180deg) rotateZ(-45deg) translateX(5.52421875vh);
+  transform-origin: right;
+}
+.menu-open > #menu-area {
+  transition: transform 0.7s;
+  transform: translateX(-15vw);
 }/*# sourceMappingURL=style.css.map */
