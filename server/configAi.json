@@ -1,0 +1,45 @@
+{
+  "highestScore": 96.813,
+  "recordCountByYear": {
+    "2025": 283
+  },
+  "top5RequestNos": [
+    "1071-89",
+    "5244-53",
+    "1025-65",
+    "3318-03",
+    "3328-82"
+  ],
+  "top5SongNames": [
+    "そんなもんね",
+    "正しくなれない",
+    "Nocturnal Night Fever",
+    "君の知らない物語(生音)",
+    "Yellow Rose"
+  ],
+  "top5ArtistNames": [
+    "asmi",
+    "ずっと真夜中でいいのに。",
+    "天月/狂蘭メロコ/八雲べに/ライト",
+    "supercell",
+    "TINGS:青天国春(CV.鈴代紗弓)、玉城杏夏(CV.蟹沢萌子)、聖舞理王(CV.夏吉ゆうこ)、祇園寺雪音(CV.長谷川里桃)、伊藤紅葉(CV.中川梨花)"
+  ],
+  "recentDate": [
+    "2025/11/04",
+    "2025/10/28",
+    "2025/10/22",
+    "2025/10/03",
+    "2025/08/31",
+    "2025/08/30",
+    "2025/08/26"
+  ],
+  "latestDateStats": {
+    "dateKey": "20251104",
+    "maxTotalScore": 0,
+    "avgPitch": 88.8,
+    "avgStability": 68.88,
+    "avgExpressive": 79.6,
+    "avgVibratoLongtone": 87.96,
+    "avgRhythm": 96.72
+  }
+}

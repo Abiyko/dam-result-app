@@ -1,8 +1,2 @@
 node_modules/
 .env
-configDxg.json
-configAi.json
-configHeart.json
-scoresDxg.csv
-scoresAi.csv
-scoresHeart.csv

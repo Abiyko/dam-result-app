@@ -2,7 +2,6 @@ $cWhite: white;
 $cGray: #D0D0D0;
 $cBlack: black;
 
-$default-font-size: 7vh;
 $header-height: 7.8125vh;
 $margin: $header-height * 0.25;
 $icon-size: $header-height * 0.5;
@@ -24,32 +23,19 @@ $record-days-height: $above-area-height - $type-button-height - $margin;
 $top5-height: $type-button-height / 2;
 $top5-width: calc($top5-area-width - $margin * 2);
 $top5-margin: $top5-height / 5;
-$top5-title-size: $top5-height /2;
+$top5-song-width: calc($top5-width * 3 / 4);
+$top5-artist-width: calc($top5-width / 4);
 $top5-area-height: $top5-height * 6 + $top5-margin *4 + $margin * 5;
 $hexagon-margin: $chart-area-height / 8;
 $hexagon-height: $above-area-height - $hexagon-margin * 2;
 $hexagon-width: $hexagon-height * sqrt(3) / 2;
+$menu-area-width:15vw;
+$manu-main-margin: ($header-height + $margin) * 2;
+$menu-open-duration:0.7s;
 
-// $avgPitch: 10;
-// $avgStability: 10;
-// $avgExpressive: 10;
-// $avgVibratoLongtone: 10;
-// $avgRhythm: 10;
-// $avgHearing: 10;
-
-// $pitch-x: $hexagon-width * 0.5;
-// $pitch-y: $hexagon-height * (0.5 - $avgPitch / 200);
-// $stability-x: $hexagon-width * (0.5 + $avgStability / 200);
-// $stability-y: $hexagon-height * (0.5 - $avgStability / 400);
-// $expressive-x: $hexagon-width * (0.5 + $avgExpressive / 200);
-// $expressive-y: $hexagon-height * (0.5 + $avgExpressive / 400);
-// $hearing-x: $hexagon-width * 0.5;
-// $hearing-y: $hexagon-height * (0.5 + $avgHearing / 200);
-// $rhythm-x: $hexagon-width * (0.5 - $avgRhythm / 200);
-// $rhythm-y: $hexagon-height * (0.5 + $avgRhythm / 400);
-// $vibratoLongtone-x: $hexagon-width * (0.5 - $avgVibratoLongtone / 200);
-// $vibratoLongtone-y: $hexagon-height * (0.5 - $avgVibratoLongtone / 400);
-
+$large-font-size: 2.0vw;
+$middle-font-size:1.5vw;
+$small-font-size:1vw;
 
 body {
     margin: 0px;
@@ -67,42 +53,45 @@ header {
         background-color: transparent;
         border: none;
         
-        &.icon {
+        &#icon {
             height: $icon-size;
             width: $icon-size;
             background-color: $cGray;
         }
-        &.description {
+        &#description {
             height: $margin;
             margin-top: $icon-size;
             margin-right: 0px;
             margin-left: 0px;
-            font-size: $margin;
+            font-size: $small-font-size;
         }
 
-        &.title {
+        &#title {
             height: $icon-size;
             width: auto;
             white-space: nowrap;
             position: absolute;
             left: 50%;
             transform: translate(-50%, 0);
-            font-size: $icon-size;
+            font-size: $large-font-size;
         }
 
-        &.menu-icon {
+        &#menu-icon {
             height: $icon-size;
             width: $menu-span-width;
             margin-left: auto;
             flex-direction: column;
+            z-index: 2;
             padding: 0px;
-
+            
+            
             & > span {
                 background-color: $cBlack;
                 height: $line-thickness;
                 width: $menu-span-width;
                 margin-bottom: $menu-span-padding;
                 display: block;
+                transition: transform $menu-open-duration;
 
                 &:last-child {
                     margin-bottom: 0px;
@@ -127,7 +116,6 @@ main {
         height: $main-height;
         width: $records-area-width;
         margin: $margin;
-        // display: block;
 
         & > .chart-area {
             background-color: $cGray;
@@ -149,7 +137,7 @@ main {
                     position: relative;
 
                     & > .type {
-                        font-size: $top5-title-size;
+                        font-size: $middle-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 0%;
@@ -166,10 +154,9 @@ main {
                         transform: translate(-50%, 0%);
 
                         & > .average-hexagon {
-                        background-color: $cBlack;
+                        background-color: $cWhite;
                         height: $hexagon-height;
                         width: $hexagon-width;
-                        // clip-path: polygon($pitch-x $pitch-y, $stability-x $stability-y, $expressive-x $expressive-y, $hearing-x $hearing-y, $rhythm-x $rhythm-y, $vibratoLongtone-x $vibratoLongtone-y);
                         margin-top: $hexagon-margin;
                         margin-left: 50%;
                         transform: translate(-50%, 0%);
@@ -177,7 +164,7 @@ main {
                     }
 
                     & > .pitch {
-                        font-size: $top5-title-size;
+                        font-size: $middle-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 15%;
@@ -186,7 +173,7 @@ main {
                     }
 
                     & > .stability {
-                        font-size: $top5-title-size;
+                        font-size: $middle-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 30%;
@@ -195,7 +182,7 @@ main {
                     }
 
                     & > .expressive {
-                        font-size: $top5-title-size;
+                        font-size: $middle-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 70%;
@@ -204,7 +191,7 @@ main {
                     }
 
                     & > .hearing {
-                        font-size: $top5-title-size;
+                        font-size: $middle-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 85%;
@@ -213,7 +200,7 @@ main {
                     }
 
                     & > .rhythm {
-                        font-size: $top5-title-size;
+                        font-size: $middle-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 70%;
@@ -222,12 +209,20 @@ main {
                     }
 
                     & > .vibrato-longtone {
-                        // font-size: $top5-title-size;
+                        font-size: $small-font-size;
                         white-space: nowrap;
                         position: absolute;
                         top: 30%;
-                        left: 20%;
+                        left: 25%;
                         transform: translate(-100%, -50%);
+                    }
+                    
+                    & > div {
+                        text-align: center;
+                    }
+
+                    & > div .average-value {
+                        font-size: $middle-font-size;
                     }
                 }
 
@@ -235,7 +230,6 @@ main {
                     height: $above-area-height;
                     width: $record-nums-area-width;
                     margin-left: auto;
-                    // display: block;
 
                     & > .record-days {
                         height: $record-days-height;
@@ -243,21 +237,23 @@ main {
                         display: block;
 
                         & > span {
-                            // background-color: $cWhite;
                             height: $top5-height;
                             width: $record-nums-area-width;
                             margin-bottom: $top5-margin;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            font-size: $top5-title-size;
+                            font-size: $middle-font-size;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
 
                             &:first-child {
                                 background-color: transparent;
+                                display: block;
                                 margin-bottom: $margin;
                                 justify-content: left;
-                                font-size: $top5-title-size;
-                                white-space: nowrap;
+                                font-size: $middle-font-size;
                             }
                         }
                     }
@@ -270,9 +266,22 @@ main {
                         display: flex;
 
                         & > div {
-                            font-size: $top5-title-size;
+                            font-size: $small-font-size;
                             white-space: nowrap;
                             display: flex;
+
+                            &:nth-child(1) {
+                                font-size: $middle-font-size;
+                            }
+
+                            &:nth-child(2) {
+                                left: $margin;
+                            }
+
+                            &:nth-child(3) {
+                                transform: translateX(-100%);
+                                right: $margin;
+                            }
                         }
                     }
                 }
@@ -289,16 +298,23 @@ main {
                     height: $type-button-height;
                     width: $score-width;
                     display: flex;
-                    font-size: $top5-title-size;
+                    font-size: $small-font-size;
 
                     &:first-child {
                         margin-right: $margin;
                     }
 
                     & > div {
-                        font-size: $top5-title-size;
                         white-space: nowrap;
                         display: flex;
+
+                        &:nth-child(1) {
+                            font-size: $middle-font-size;
+                        }
+
+                        &:nth-child(3) {
+                            margin-right: $margin;
+                        }
                     }
                 }
             }
@@ -317,7 +333,7 @@ main {
                 width: $type-button-width;
                 margin-right: $margin;
                 display: flex;
-                font-size: $top5-title-size;
+                font-size: $large-font-size;
                 align-items: center;
                 justify-content: center;
                 white-space: nowrap;
@@ -351,21 +367,27 @@ main {
                 &:first-child {
                     background-color: transparent;
                     margin: $margin;
-                    font-size: $top5-title-size;
+                    font-size: $large-font-size;
                     white-space: nowrap;
                 }
 
                 & > .song-name {
+                    width: $top5-song-width;
                     margin-left: $margin;
-                    display: flex;
-                    font-size: $top5-title-size;
+                    // display: flex;
+                    font-size: $middle-font-size;
                     white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     align-items: center;
                 }
 
                 & > .artist-name {
-                    // font-size: $top5-title-size;
+                    width: $top5-artist-width;
+                    font-size: $small-font-size;
                     white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     align-items: center;
                 }
             }
@@ -388,21 +410,28 @@ main {
                 &:first-child {
                     background-color: transparent;
                     margin: $margin;
-                    font-size: $top5-title-size;
+                    font-size: $large-font-size;
                     white-space: nowrap;
                 }
 
                 & > .song-name {
+                    width: $top5-song-width;
+                    max-width: $top5-song-width;
                     margin-left: $margin;
-                    display: flex;
-                    font-size: $top5-title-size;
+                    // display: flex;
+                    font-size: $middle-font-size;
                     white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     align-items: center;
                 }
 
                 & > .artist-name {
-                    // font-size: $top5-title-size;
+                    width: $top5-artist-width;
+                    font-size: $small-font-size;;
                     white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     align-items: center;
                 }
             }
@@ -410,9 +439,63 @@ main {
     }
 }
 
+#menu-area {
+    background-color: $cGray;
+    height: 100vh;
+    width: $menu-area-width;
+    position: fixed;
+    top: 0;
+    right:-$menu-area-width;
+    z-index: 1;
+    transition: transform $menu-open-duration;
+    
+    & > ul {
+        margin-top: $manu-main-margin;
+
+        & > li {
+            list-style: none;
+            font-size: $middle-font-size;
+            margin-bottom: $margin;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &:nth-child(1) > span {
+                color: $cWhite
+            }
+        }
+
+        & > #login-btn {
+            background-color: transparent;
+            border: none;
+            display: block;
+            font-size: $small-font-size;
+            margin-top: $top5-area-height;
+            margin-bottom: 0;
+
+            &:hover {
+                background-color: $cWhite;
+            }
+        }
+
+        & > #update-btn {
+            background-color: transparent;
+            border: none;
+            font-size: $middle-font-size;
+            margin-top: $margin;
+
+            &:hover {
+                background-color: $cWhite;
+            }
+        }
+    }
+}
+
 .top-left {
+    left: $margin;
     position: relative;
-    margin-left: - $margin;
+    transform-origin: left;
+    transform: translate(-50%, 0%);
 }
 
 .center {
@@ -425,6 +508,30 @@ main {
 .bottom-right {
     position: relative;
     margin-top: auto;
-    margin-right: $margin;
     margin-left: auto;
+}
+
+.menu-open {
+    & > header > #menu-icon > span {
+        transition: transform $menu-open-duration;
+
+        &:nth-child(1) {
+            transform: rotateY(180deg) rotateZ(45deg) translateX($menu-span-width);
+            transform-origin: right;
+
+        }
+        &:nth-child(2) {
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+        &:nth-child(3) {
+            transform: rotateY(180deg) rotateZ(-45deg) translateX($menu-span-width);
+            transform-origin: right;
+        }  
+    }
+
+    & > #menu-area {
+        transition: transform $menu-open-duration;
+        transform: translateX(-$menu-area-width);
+    }
 }

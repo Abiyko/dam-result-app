@@ -1,0 +1,46 @@
+{
+  "highestScore": 94.479,
+  "recordCountByYear": {
+    "2024": 181,
+    "2025": 19
+  },
+  "top5RequestNos": [
+    "5502-85",
+    "4000-35",
+    "3401-31",
+    "1260-87",
+    "1298-57"
+  ],
+  "top5SongNames": [
+    "正解はいらない(TV-Size ver.)",
+    "シンメトリー",
+    "ファタール",
+    "Palette",
+    "The Last Frontier"
+  ],
+  "top5ArtistNames": [
+    "ナナヲアカリ",
+    "ReGLOSS",
+    "GEMN",
+    "常闇トワ",
+    "AZKi & 星街すいせい"
+  ],
+  "recentDate": [
+    "2025/10/11",
+    "2025/10/10",
+    "2025/10/03",
+    "2024/11/29",
+    "2024/09/01",
+    "2024/08/06",
+    "2024/07/29"
+  ],
+  "latestDateStats": {
+    "dateKey": "20251011",
+    "maxTotalScore": 0,
+    "avgPitch": 88,
+    "avgStability": 72.857,
+    "avgExpressive": 63.714,
+    "avgVibratoLongtone": 85.357,
+    "avgRhythm": 93.429
+  }
+}

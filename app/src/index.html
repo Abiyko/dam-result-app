@@ -10,10 +10,10 @@
     <script type="module" src="./readJson.js"></script>
 
     <header>
-        <button class="header-item icon">icon</button>
-        <button class="header-item description">About me</button>
-        <div class="header-item title">あびぃのカラオケDAM採点記録</div>
-        <button class="header-item menu-icon">
+        <button class="header-item" id="icon">icon</button>
+        <button class="header-item" id="description">About me</button>
+        <div class="header-item" id="title">あびぃのカラオケDAM採点記録</div>
+        <button class="header-item" id="menu-icon">
             <span></span>
             <span></span>
             <span></span>
@@ -31,12 +31,30 @@
                         <div class="hexagon">
                             <div class="average-hexagon"></div>
                         </div>
-                        <div class="pitch">音程</div>
-                        <div class="stability">安定性</div>
-                        <div class="expressive">表現力</div>
-                        <div class="hearing">聴感</div>
-                        <div class="rhythm">リズム</div>
-                        <div class="vibrato-longtone">ビブラート＆<br>ロングトーン</div>
+                        <div class="pitch">
+                            <div>音程</div>
+                            <div class="average-value">100</div>
+                        </div>
+                        <div class="stability">
+                            <div>安定性</div>
+                            <div class="average-value">100</div>
+                        </div>
+                        <div class="expressive">
+                            <div>表現力</div>
+                            <div class="average-value">100</div>
+                        </div>
+                        <div class="hearing">
+                            <div>聴感</div>
+                            <div class="average-value">100</div>
+                        </div>
+                        <div class="rhythm">
+                            <div>リズム</div>
+                            <div class="average-value">100</div>
+                        </div>
+                        <div class="vibrato-longtone">
+                            <div>ビブラート＆<br>ロングトーン</div>
+                            <div class="average-value">100</div>
+                        </div>
                     </div>
                     <div class="record-nums-area">
                         <span class="record-days">
@@ -125,5 +143,35 @@
             </div>
         </span>
     </main>
+
+    <nav id="menu-area">
+        <ul class="menu-main">
+            <li class="menu-item">
+                <span>TOP</span>
+            </li>
+            <li class="menu-item">
+                <span>Ai Heart</span>
+            </li>
+            <li class="menu-item">
+                <span>Ai</span>
+            </li>
+            <li class="menu-item">
+                <span>DX-G</span>
+            </li>
+            <li class="menu-item">
+                <span>Repertoire</span>
+            </li>
+            <button class="menu-item" id="login-btn">
+                <span>Log in</span>
+            </button>
+            <button class="menu-item" id="update-btn">
+                <span>Update</span>
+            </button>
+        </ul>
+    </nav>
+
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="login.js"></script>
+    <script src="eventListener.js"></script>
 </body>
 </html>

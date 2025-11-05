@@ -150,6 +150,31 @@ function renderData(data, favorites) {
         }
     });
 
+    // 記録数の反映
+    const recordCount = document.querySelector('.record-count > div.center');
+    const recordCountThisYear = data["recordCountByYear"]["2025"];
+    recordCount.textContent = recordCountThisYear;
+
+    // 平均値の反映
+    const avePitchValue = document.querySelector('.pitch > div.average-value');
+    const avgPitch = data["latestDateStats"]["avgPitch"];
+    avePitchValue.textContent = avgPitch;
+    const aveStabilityValue = document.querySelector('.stability > div.average-value');
+    const avgStability = data["latestDateStats"]["avgStability"];
+    aveStabilityValue.textContent = avgStability;
+    const aveExpressiveValue = document.querySelector('.expressive > div.average-value');
+    const avgExpressive = data["latestDateStats"]["avgExpressive"];
+    aveExpressiveValue.textContent = avgExpressive;
+    const aveVibratoLongtoneValue = document.querySelector('.vibrato-longtone > div.average-value');
+    const avgVibratoLongtone = data["latestDateStats"]["avgVibratoLongtone"];
+    aveVibratoLongtoneValue.textContent = avgVibratoLongtone;
+    const aveRhythmValue = document.querySelector('.rhythm > div.average-value');
+    const avgRhythm = data["latestDateStats"]["avgRhythm"];
+    aveRhythmValue.textContent = avgRhythm;
+    const avgHearing = data["latestDateStats"]["avgHearing"];
+    const aveHearingValue = document.querySelector('.hearing > div.average-value');
+    aveHearingValue.textContent = avgHearing;
+
     // 平均チャートの反映
     updateAverageChart(data);
 }
