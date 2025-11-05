@@ -1,7 +1,7 @@
-const CONFIG_DXG_FILE_PATH = "../../server/configDxg.json";
-const CONFIG_AI_FILE_PATH = "../../server/configAi.json";
-const CONFIG_HEART_FILE_PATH = "../../server/configHeart.json";
-const FAVORITES_FILE_PATH = "../../server/favorites.json";
+const CONFIG_DXG_FILE_PATH = "./server/configDxg.json";
+const CONFIG_AI_FILE_PATH = "./server/configAi.json";
+const CONFIG_HEART_FILE_PATH = "./server/configHeart.json";
+const FAVORITES_FILE_PATH = "./server/favorites.json";
 
 
 
