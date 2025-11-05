@@ -18,7 +18,7 @@ header .header-item {
 header .header-item#icon {
   height: 3.90625vh;
   width: 3.90625vh;
-  background-color: #D0D0D0;
+  border-radius: 1.953125vh;
 }
 header .header-item#description {
   height: 1.953125vh;

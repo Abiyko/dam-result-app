@@ -3,8 +3,9 @@ $cGray: #D0D0D0;
 $cBlack: black;
 
 $header-height: 7.8125vh;
-$margin: $header-height * 0.25;
-$icon-size: $header-height * 0.5;
+$margin: $header-height / 4;
+$icon-size: $header-height / 2;
+$icon-radius: $icon-size / 2;
 $line-thickness: 0.25vh;
 $menu-span-width: $header-height * 0.7071;
 $menu-span-padding: ($icon-size - (3 * $line-thickness)) / 2;
@@ -56,7 +57,7 @@ header {
         &#icon {
             height: $icon-size;
             width: $icon-size;
-            background-color: $cGray;
+            border-radius: $icon-radius;
         }
         &#description {
             height: $margin;
