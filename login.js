@@ -80,11 +80,6 @@ const callProtectedApi = async () => {
 
 // 初期化と実行
 window.onload = async () => {
-    if (typeof auth0 === 'undefined') {
-        console.error("Auth0 SDKが読み込まれていません。");
-        return;
-    }
-
     await configureClient(); // クライアント初期化
     await handleCallback();  // コールバックURLで実行
     

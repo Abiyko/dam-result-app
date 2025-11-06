@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="discription" content="This site shows my karaoke scores.">
     <title>あびぃのカラオケDAM採点記録</title>
-    <link rel="icon" href="/images/favicon.png">
+    <link rel="icon" href="./images/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script type="module" src="./readJson.js"></script>
-
+    
     <header>
-        <img class="header-item" id="icon" src="images/favicon.png" alt="icon">
+        <img class="header-item" id="icon" src="./images/favicon.png" alt="icon">
         <button class="header-item" id="description">About me</button>
         <div class="header-item" id="title">あびぃのカラオケDAM採点記録</div>
         <button class="header-item" id="menu-icon">
@@ -21,9 +20,9 @@
             <span></span>
         </button>
     </header>
-
+    
     <span class="horizontal-line"></span>
-
+    
     <main>
         <span class="records-area">
             <div class="chart-area">
@@ -119,7 +118,7 @@
                     <div class="artist-name bottom-right">artist-name-5</div>
                 </span>
             </div>
-
+            
             <div class="favorite-songs-area">
                 <span>お気に入り曲</span>
                 <span>
@@ -145,7 +144,7 @@
             </div>
         </span>
     </main>
-
+    
     <nav id="menu-area">
         <ul class="menu-main">
             <li class="menu-item">
@@ -171,8 +170,9 @@
             </button>
         </ul>
     </nav>
-
+    
+    <script type="module" src="/readJson.js"></script>
     <script type="module" src="/login.js"></script>
-    <script type="module" src="eventListener.js"></script>
+    <script type="module" src="/eventListener.js"></script>
 </body>
 </html>
