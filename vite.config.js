@@ -1,9 +1,8 @@
 // vite.config.js
 import { defineConfig } from 'vite';
-import netlify from "@netlify/vite-plugin";
 
 export default defineConfig({
-  plugins: [netlify()],
+  // 以前ご指摘した基本設定
   base: '/', 
   
   resolve: {
