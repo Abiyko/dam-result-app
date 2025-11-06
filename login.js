@@ -1,8 +1,8 @@
 const config = {
-    domain: "",
-    clientId: "",
-    redirectUri: "",
-    audience: ""
+    domain: import.meta.env.VITE_AUTH0_DOMAIN,
+    clientId: import.meta.env.VITE_AUTH0_CLIENT_ID, 
+    redirectUri: import.meta.env.VITE_AUTH0_REDIRECT_URI,
+    audience: import.meta.env.VITE_AUTH0_AUDIENCE
 };
 
 // 状態管理用の変数
@@ -47,7 +47,7 @@ const handleCallback = async () => {
 const logout = () => {
     auth0Client.logout({
         logoutParams: {
-            returnTo: window.location.origin + '/app/src/'
+            returnTo: window.location.origin
         }
     });
 };
@@ -56,7 +56,6 @@ const callProtectedApi = async () => {
     try {
         const accessToken = await auth0Client.getTokenSilently();
         
-        // 💡 バックエンドサーバーのURLが異なる場合は修正してください (例: 'http://localhost:3000/api/run-script')
         const response = await fetch('/api/run-script', {
             method: 'GET',
             headers: {
